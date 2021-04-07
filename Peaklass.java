@@ -47,6 +47,7 @@ public class Peaklass {
                                     kate[x2][y2] = kaardid[x2][y2];
                                     õigeid += 1;
                                 }else{
+                                    Mänguväli.väljastaMängulaud(kate);
                                     kate[x][y] = "#";
                                     kate[x2][y2] = "#";
                                 }
@@ -75,38 +76,26 @@ public class Peaklass {
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
             int y = mängujuht.getYkoordinaat();
-            if((x<4 && y<4) && (-1<x&&-1<y)){
-                if(kate[x][y].equals("#")){
-                    String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
-                    mängujuht.küsiKaarti();
-                    int x2 = mängujuht.getxKoordinaat();
-                    int y2 = mängujuht.getYkoordinaat();
-                    if((x2<4 && y2<4) && (-1<x2&&-1<y2)) {
-                        if(kate[x2][y2].equals("#")){
-                            if (!(x2 == x && y2 == y)) {
-                                String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
-                                if (täht1.equals(täht2)) {
-                                    kate[x][y] = kaardid[x][y];
-                                    kate[x2][y2] = kaardid[x2][y2];
-                                    System.out.println("õige");
-                                    õigeid += 1;
-                                } else {
-                                    Mänguväli.väljastaMängulaud(kate);
-                                    kate[x][y] = "#";
-                                    kate[x2][y2] = "#";
-                                    System.out.println("vale");
-                                }
-                            }else{
-                                System.out.println("võta uuesti");
-                            }
-                        }else{
-                            kate[x][y] = "#";
-                            System.out.println("võta uuesti");
-                        }
-                    }else{
-                        System.out.println("võta uuesti");
+            if(kate[x][y].equals("#")){
+                String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
+                mängujuht.küsiKaarti();
+                int x2 = mängujuht.getxKoordinaat();
+                int y2 = mängujuht.getYkoordinaat();
+                if(kate[x2][y2].equals("#")){
+                    String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
+                    if (täht1.equals(täht2)) {
+                        kate[x][y] = kaardid[x][y];
+                        kate[x2][y2] = kaardid[x2][y2];
+                        System.out.println("õige");
+                        õigeid += 1;
+                    } else {
+                        Mänguväli.väljastaMängulaud(kate);
+                        kate[x][y] = "#";
+                        kate[x2][y2] = "#";
+                        System.out.println("vale");
                     }
                 }else{
+                    kate[x][y] = "#";
                     System.out.println("võta uuesti");
                 }
             }else{
