@@ -66,12 +66,12 @@ public class Peaklass {
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
             int y = mängujuht.getYkoordinaat();
-            if(x<6 && y<6){                     //lauasuurustest väiksemad
+            if(x<4 && y<4){                     //lauasuurustest väiksemad
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
                 mängujuht.küsiKaarti();
                 int x2 = mängujuht.getxKoordinaat();
                 int y2 = mängujuht.getYkoordinaat();
-                if(x2<6 && y2<6) {              //lauasuurustest väiksemad
+                if(x2<4 && y2<4) {              //lauasuurustest väiksemad
                     if (!(x2 == x && y2 == y)) {
                         String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
                         if (täht1.equals(täht2)) {
