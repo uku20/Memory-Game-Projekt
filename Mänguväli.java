@@ -3,8 +3,33 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Mänguväli {
+    private String[][] mängulaud; //määran siin mängulaua juba isendiväljana
+    private int lauaSuurus; //Praegu maksimaalne laua suurus mis töötaks, oleks 6x6
+    private String[] tähemärgid = {
+            "A", "B", "C", "D", "E", "F", "G", "H", "I",
+            "J", "K", "L", "M", "N", "O", "P", "Q", "R"};
 
-    public static String[][] algne(int lauaSuurus){
+    public Mänguväli(int lauaSuurus) {
+        this.lauaSuurus = lauaSuurus;
+        mängulaud = new String[lauaSuurus][lauaSuurus];
+    }
+
+    public String[][] getMängulaud() {
+        return mängulaud;
+    }
+
+    // Loob "katte" ehk lauasuuruse tabeli, kus iga element on sümbol '#'
+    public String[][] genereeriKate() {
+        String[][] kate = new String[lauaSuurus][lauaSuurus];
+        for (int i = 0; i < lauaSuurus; i++) {
+            for (int j = 0; j < lauaSuurus; j++) {
+                kate[i][j] = "#";
+            }
+        }
+        return kate;
+    }
+
+    public void täidaLaud(){
         int mituMärki = (lauaSuurus * lauaSuurus)/2;
         //teen listi, kuhu panen kõik massiivi asukohtade indeksite paarid.
         List<int[]> vabadIndeksid = new ArrayList<>();
@@ -16,21 +41,12 @@ public class Mänguväli {
                 vabadIndeksid.add(indeksipaar);
             }
         }
-        //Teen tähemärkide massiivi, kust saab võtta nii palju märke, kui vaja
-        //Praegu maksimaalne laua suurus mis töötaks, oleks 6x6
-        String[] tähemärgid = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
-                                "O", "P", "Q", "R"};
+
         List<String> kasutatavadTähemärgid = new ArrayList<>();
         for (int i = 0; i < mituMärki; i++) {
             kasutatavadTähemärgid.add(tähemärgid[i]);
         }
-        //Loon algse tabeli, kus kõik elemendid, on "#"
-        String[][] valmisTabel = new String[lauaSuurus][lauaSuurus];
-        for (int i = 0; i < lauaSuurus; i++) {
-            for (int j = 0; j < lauaSuurus; j++) {
-                valmisTabel[i][j] = "#";
-            }
-        }
+
         //Valin Random abiga suvalised kaks positsiooni tabelis ja ühe tähemärgi,
         //siis panen tähemärgid nendele positsioonidele ja eemaldan vastavad asjad listidest
         //ja jätkan senikaua, kuni tabel on valmis.
@@ -48,8 +64,8 @@ public class Mänguväli {
             int y2 = positsioon2[1];
             int arv3 = (int) (Math.round(Math.random() * (1 - kasutatavadTähemärgid.size()) + kasutatavadTähemärgid.size())-1);
             String tähemärk = kasutatavadTähemärgid.get(arv3);
-            valmisTabel[x1][y1] = tähemärk;
-            valmisTabel[x2][y2] = tähemärk;
+            mängulaud[x1][y1] = tähemärk;
+            mängulaud[x2][y2] = tähemärk;
             vabadIndeksid.remove(arv1);
             if(arv1<arv2){
                 vabadIndeksid.remove(arv2 - 1);
@@ -58,13 +74,6 @@ public class Mänguväli {
             }
             kasutatavadTähemärgid.remove(arv3);
         }
-        return valmisTabel;
     }
 
-    public static void main(String[] args) {
-        String[][] tabel = algne(4);
-        for (int i = 0; i < tabel.length; i++) {
-            System.out.println(Arrays.toString(tabel[i]));
-        }
-    }
 }
