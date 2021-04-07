@@ -35,18 +35,27 @@ public class Peaklass {
         //Ilma scanneriteta vundament, saab muutujaid vabalt väärtustada ja väljundeid lisada.
         /**int mituPaari = (lauasuurus**2) / 2;
         while (õigeid!=mituPaari){
-            if((x<lauasuurs && y<lauasuurus)&&(0<x && 0<y)){
-                String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
-                if((x2<lauasuurs && y2<lauasuurus)&&(0<x2&&0<y2)){
-                    String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
-                    if(!(x==x2 && y==y2)){
-                        if(täht1.equals(täht2)){
-                            kate[x][y] = kaardid[x][y];
-                            kate[x2][y2] = kaardid[x2][y2];
-                            õigeid += 1;
-                        }else{
+            if((x<lauasuurs && y<lauasuurus)&&(-1<x && -1<y)){
+                if(kate[x][y].equals("#")){
+                    String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
+                    if((x2<lauasuurs && y2<lauasuurus)&&(-1<x2&&-1<y2)){
+                        if(kate[x2][y2].equals("#")){
+                            String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
+                            if(!(x==x2 && y==y2)){
+                                if(täht1.equals(täht2)){
+                                    kate[x][y] = kaardid[x][y];
+                                    kate[x2][y2] = kaardid[x2][y2];
+                                    õigeid += 1;
+                                }else{
+                                    kate[x][y] = "#";
+                                    kate[x2][y2] = "#";
+                                }
+                            }else{
+                                //midagi väljastab
+                            }
+                        else{
                             kate[x][y] = "#";
-                            kate[x2][y2] = "#";
+                            //midagi väljastab
                         }
                     }else{
                         //midagi väljastab
@@ -66,23 +75,32 @@ public class Peaklass {
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
             int y = mängujuht.getYkoordinaat();
-            if(x<4 && y<4){                     //lauasuurustest väiksemad
-                String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
-                mängujuht.küsiKaarti();
-                int x2 = mängujuht.getxKoordinaat();
-                int y2 = mängujuht.getYkoordinaat();
-                if(x2<4 && y2<4) {              //lauasuurustest väiksemad
-                    if (!(x2 == x && y2 == y)) {
-                        String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
-                        if (täht1.equals(täht2)) {
-                            kate[x][y] = kaardid[x][y];
-                            kate[x2][y2] = kaardid[x2][y2];
-                            System.out.println("õige");
-                            õigeid += 1;
-                        } else {
+            if((x<4 && y<4) && (-1<x&&-1<y)){
+                if(kate[x][y].equals("#")){
+                    String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
+                    mängujuht.küsiKaarti();
+                    int x2 = mängujuht.getxKoordinaat();
+                    int y2 = mängujuht.getYkoordinaat();
+                    if((x2<4 && y2<4) && (-1<x2&&-1<y2)) {
+                        if(kate[x2][y2].equals("#")){
+                            if (!(x2 == x && y2 == y)) {
+                                String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
+                                if (täht1.equals(täht2)) {
+                                    kate[x][y] = kaardid[x][y];
+                                    kate[x2][y2] = kaardid[x2][y2];
+                                    System.out.println("õige");
+                                    õigeid += 1;
+                                } else {
+                                    kate[x][y] = "#";
+                                    kate[x2][y2] = "#";
+                                    System.out.println("vale");
+                                }
+                            }else{
+                                System.out.println("võta uuesti");
+                            }
+                        }else{
                             kate[x][y] = "#";
-                            kate[x2][y2] = "#";
-                            System.out.println("vale");
+                            System.out.println("võta uuesti");
                         }
                     }else{
                         System.out.println("võta uuesti");
@@ -90,8 +108,7 @@ public class Peaklass {
                 }else{
                     System.out.println("võta uuesti");
                 }
-            }
-            else{
+            }else{
                 System.out.println("võta uuesti");
             }
 
