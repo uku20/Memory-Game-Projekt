@@ -35,9 +35,9 @@ public class Peaklass {
         //Ilma scanneriteta vundament, saab muutujaid vabalt väärtustada ja väljundeid lisada.
         /**int mituPaari = (lauasuurus**2) / 2;
         while (õigeid!=mituPaari){
-            if(x<lauasuurs && y<lauasuurus){
+            if((x<lauasuurs && y<lauasuurus)&&(0<x && 0<y)){
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
-                if(x2<lauasuurs && y2<lauasuurus){
+                if((x2<lauasuurs && y2<lauasuurus)&&(0<x2&&0<y2)){
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
                     if(!(x==x2 && y==y2)){
                         if(täht1.equals(täht2)){
