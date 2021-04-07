@@ -70,6 +70,7 @@ public class Peaklass {
         }*/
 
         while (õigeid!=mituPaari) { //koos skanneriga
+            ootaSekundeid(1);
             System.out.println();
             Mänguväli.väljastaMängulaud(kate);
             System.out.println();
@@ -88,11 +89,13 @@ public class Peaklass {
                         kate[x2][y2] = kaardid[x2][y2];
                         System.out.println("õige");
                         õigeid += 1;
+                        ootaSekundeid(1);
                     } else {
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";
                         kate[x2][y2] = "#";
                         System.out.println("vale");
+                        ootaSekundeid(1);
                     }
                 }else{
                     kate[x][y] = "#";
@@ -103,6 +106,7 @@ public class Peaklass {
             }
 
         }
+
 
         //mängujuht.lõpeta();
     }
