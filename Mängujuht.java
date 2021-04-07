@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.time.Duration;
-import java.time.Instant;
 
 public class Mängujuht {
     private Scanner scan = new Scanner(System.in);
@@ -14,17 +12,18 @@ public class Mängujuht {
     }
 
     public void küsiKaarti() {
-        System.out.println("Vali kaart (kujul \"rea nr, veeru nr\"): ");
-        String[] sisend = scan.nextLine().split(",");
-        for (String s: sisend) s.strip();
+        if (xKoordinaat == 0)
+            System.out.println("Vali kaart (kujul \"rida[tühik]veerg\", näiteks \"1 1\"): ");
+        else {
+            System.out.println("Vali kaart: ");
+        }
         try {
-            xKoordinaat = Integer.parseInt(sisend[0]);
-            yKoordinaat = Integer.parseInt(sisend[1]);
+            xKoordinaat = Integer.parseInt(scan.next());
+            yKoordinaat = Integer.parseInt(scan.next());
         } catch (NumberFormatException e) {
             System.out.println("Viga, sisesta uuesti");
             küsiKaarti();
         }
-
     }
 
     public int getxKoordinaat() {
@@ -35,8 +34,9 @@ public class Mängujuht {
         return yKoordinaat-1;
     }
 
-    public void lõpuRaport() {
-        //tegevus;
+    public void võiduRaport(int skoor) {
+        System.out.println();
+        System.out.println("Palju õnne! Oled leidnud kõik paarid.\n" +
+                "Lõpetasid mängu " + skoor + " punktiga.");
     }
-
 }

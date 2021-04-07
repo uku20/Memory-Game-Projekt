@@ -1,73 +1,18 @@
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Arrays;
 
 public class Peaklass {
 
     public static void main(String[] args) {
-        /*Mänguväli väli = new Mänguväli(4);
-        String[][] kaardid = väli.getMängulaud();
-        for (int i = 0; i < kaardid.length; i++) {
-            System.out.println(Arrays.toString(kaardid[i]));
-        }
-        System.out.println();
-        String[][] kate = väli.genereeriKate();
-        for (int i = 0; i < kate.length; i++) {
-            System.out.println(Arrays.toString(kate[i]));
-        }*/
         int mituPaari = 8;//lauasuurs**2 / 2
         int õigeid = 0;
         Mänguväli väli = new Mänguväli(4);
         String[][] kaardid = väli.getMängulaud();
         String[][] kate = väli.genereeriKate();
-
         Mängujuht mängujuht = new Mängujuht();
+        int skoor = 0;
 
         //mängujuht.alusta();
         Mänguväli.väljastaMängulaud(kaardid);
-
-        int[][] indeksid = {{1,1},{1,2},{1,3},{1,4},
-                            {2,1},{2,2},{2,3},{2,4},
-                            {3,1},{3,2},{3,3},{3,4},
-                            {4,1},{4,2},{4,3},{4,4},{4,5},{1,1}};
-
-
-        //Ilma scanneriteta vundament, saab muutujaid vabalt väärtustada ja väljundeid lisada.
-        /**int mituPaari = (lauasuurus**2) / 2;
-        while (õigeid!=mituPaari){
-            if((x<lauasuurs && y<lauasuurus)&&(-1<x && -1<y)){
-                if(kate[x][y].equals("#")){
-                    String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
-                    if((x2<lauasuurs && y2<lauasuurus)&&(-1<x2&&-1<y2)){
-                        if(kate[x2][y2].equals("#")){
-                            String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
-                            if(!(x==x2 && y==y2)){
-                                if(täht1.equals(täht2)){
-                                    kate[x][y] = kaardid[x][y];
-                                    kate[x2][y2] = kaardid[x2][y2];
-                                    õigeid += 1;
-                                }else{
-                                    Mänguväli.väljastaMängulaud(kate);
-                                    kate[x][y] = "#";
-                                    kate[x2][y2] = "#";
-                                }
-                            }else{
-                                //midagi väljastab
-                            }
-                        else{
-                            kate[x][y] = "#";
-                            //midagi väljastab
-                        }
-                    }else{
-                        //midagi väljastab
-                    }
-                }else{
-                    //midagi väljastab
-                }
-            }else{
-                //midagi väljastab
-            }
-        }*/
 
         while (õigeid!=mituPaari) { //koos skanneriga
             ootaSekundeid(1);
@@ -87,29 +32,30 @@ public class Peaklass {
                     if (täht1.equals(täht2)) {
                         kate[x][y] = kaardid[x][y];
                         kate[x2][y2] = kaardid[x2][y2];
-                        System.out.println("õige");
                         õigeid += 1;
-                        ootaSekundeid(1);
+                        skoor += väli.getLauaSuurus() * 2;
+                        System.out.println("Leidsid paari! ");
                     } else {
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";
                         kate[x2][y2] = "#";
-                        System.out.println("vale");
-                        ootaSekundeid(1);
+                        skoor -= 1;
+                        System.out.println("Paari ei leitud. ");
                     }
-                }else{
+                    System.out.println("Sinu skoor: " + skoor + "\n");
+                    ootaSekundeid(1);
+                }else {
                     kate[x][y] = "#";
-                    System.out.println("võta uuesti");
+                    System.out.println("See kaart ei sobi... Proovi uuesti.");
                 }
-            }else{
-                System.out.println("võta uuesti");
+            }else {
+                System.out.println("See kaart ei sobi... Proovi uuesti.");
             }
-
         }
+        mängujuht.võiduRaport(skoor);
 
-
-        //mängujuht.lõpeta();
     }
+
     public static void ootaSekundeid(int n){
         try
         {

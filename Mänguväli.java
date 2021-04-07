@@ -14,6 +14,14 @@ public class Mänguväli {
         mängulaud = new String[lauaSuurus][lauaSuurus];
     }
 
+    public int getLauaSuurus() {
+        return lauaSuurus;
+    }
+
+    public void setLauaSuurus(int lauaSuurus) {
+        this.lauaSuurus = lauaSuurus;
+    }
+
     public String[][] getMängulaud() {
         täidaLaud();
         return mängulaud;
@@ -42,12 +50,10 @@ public class Mänguväli {
                 vabadIndeksid.add(indeksipaar);
             }
         }
-
         List<String> kasutatavadTähemärgid = new ArrayList<>();
         for (int i = 0; i < mituMärki; i++) {
             kasutatavadTähemärgid.add(tähemärgid[i]);
         }
-
         //Valin Random abiga suvalised kaks positsiooni tabelis ja ühe tähemärgi,
         //siis panen tähemärgid nendele positsioonidele ja eemaldan vastavad asjad listidest
         //ja jätkan senikaua, kuni tabel on valmis.
@@ -76,14 +82,15 @@ public class Mänguväli {
             kasutatavadTähemärgid.remove(arv3);
         }
     }
+
     public static void väljastaMängulaud(String[][] mängulaud){
         for (int i = 0; i < mängulaud.length; i++) {
             System.out.println(Arrays.toString(mängulaud[i]));
         }
     }
+
     public static String valiKaks(String[][] tühi, String[][] algne, int x, int y){
         tühi[x][y] = algne[x][y];
         return algne[x][y];
     }
-
 }
