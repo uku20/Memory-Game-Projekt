@@ -15,6 +15,7 @@ public class Mänguväli {
     }
 
     public String[][] getMängulaud() {
+        täidaLaud();
         return mängulaud;
     }
 
@@ -74,6 +75,16 @@ public class Mänguväli {
             }
             kasutatavadTähemärgid.remove(arv3);
         }
+    }
+    public static void väljastaMängulaud(String[][] mängulaud){
+        for (int i = 0; i < mängulaud.length; i++) {
+            System.out.println(Arrays.toString(mängulaud[i]));
+        }
+    }
+    public static String valiKaks(String[][] tühi, String[][] algne, int x, int y){
+        tühi[x][y] = algne[x][y];
+        väljastaMängulaud(tühi);
+        return algne[x][y];
     }
 
 }

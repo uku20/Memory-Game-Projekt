@@ -21,10 +21,30 @@ public class Peaklass {
 
         Mängujuht mängujuht = new Mängujuht();
 
-        mängujuht.alusta();
+        //mängujuht.alusta();
+
 
         while (kate != kaardid) {
-            //mängujuht.küsiKaarti(kaardid);
+            System.out.println();
+            Mänguväli.väljastaMängulaud(kate);
+            System.out.println();
+            mängujuht.küsiKaarti();
+            int x = mängujuht.getxKoordinaat();
+            int y = mängujuht.getYkoordinaat();
+            String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
+            mängujuht.küsiKaarti();
+            int x2 = mängujuht.getxKoordinaat();
+            int y2 = mängujuht.getYkoordinaat();
+            String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
+            if(täht1.equals(täht2)){
+                kate[x][y] = kaardid[x][y];
+                kate[x2][y2] = kaardid[x2][y2];
+                System.out.println("õige");
+            }else{
+                kate[x][y] = "#";
+                kate[x2][y2] = "#";
+                System.out.println("vale");
+            }
         }
 
         //mängujuht.lõpeta();
