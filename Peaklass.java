@@ -15,6 +15,8 @@ public class Peaklass {
         for (int i = 0; i < kate.length; i++) {
             System.out.println(Arrays.toString(kate[i]));
         }*/
+        int mituPaari = 8;//lauasuurs**2 / 2
+        int õigeid = 0;
         Mänguväli väli = new Mänguväli(4);
         String[][] kaardid = väli.getMängulaud();
         String[][] kate = väli.genereeriKate();
@@ -22,9 +24,9 @@ public class Peaklass {
         Mängujuht mängujuht = new Mängujuht();
 
         //mängujuht.alusta();
+        Mänguväli.väljastaMängulaud(kaardid);
 
-
-        while (kate != kaardid) {
+        while (õigeid!=mituPaari) {
             System.out.println();
             Mänguväli.väljastaMängulaud(kate);
             System.out.println();
@@ -40,6 +42,7 @@ public class Peaklass {
                 kate[x][y] = kaardid[x][y];
                 kate[x2][y2] = kaardid[x2][y2];
                 System.out.println("õige");
+                õigeid += 1;
             }else{
                 kate[x][y] = "#";
                 kate[x2][y2] = "#";
