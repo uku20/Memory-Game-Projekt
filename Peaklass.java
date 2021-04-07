@@ -91,6 +91,7 @@ public class Peaklass {
                                     System.out.println("õige");
                                     õigeid += 1;
                                 } else {
+                                    Mänguväli.väljastaMängulaud(kate);
                                     kate[x][y] = "#";
                                     kate[x2][y2] = "#";
                                     System.out.println("vale");

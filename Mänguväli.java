@@ -83,7 +83,6 @@ public class Mänguväli {
     }
     public static String valiKaks(String[][] tühi, String[][] algne, int x, int y){
         tühi[x][y] = algne[x][y];
-        väljastaMängulaud(tühi);
         return algne[x][y];
     }
 
