@@ -4,16 +4,16 @@ public class Peaklass {
 
     public static void main(String[] args) {
         Mängujuht mängujuht = new Mängujuht();
+        mängujuht.juhataSisse();
         mängujuht.alusta();
-        int lauasuurus = mängujuht.getSisendMõõde();
-        Mänguväli väli = new Mänguväli(lauasuurus);
+
+        int lauaSuurus = mängujuht.getSisendMõõde();
+        Mänguväli väli = new Mänguväli(lauaSuurus);
         String[][] kaardid = väli.getMängulaud();
         String[][] kate = väli.genereeriKate();
-        int mituPaari = (lauasuurus*lauasuurus) / 2;
+        int mituPaari = (int) (Math.pow(väli.getLauaSuurus(), 2) / 2);
         int õigeid = 0;
         int skoor = 0;
-
-        Mänguväli.väljastaMängulaud(kaardid);
 
         while (õigeid!=mituPaari) {
             ootaSekundeid(1);
@@ -22,29 +22,30 @@ public class Peaklass {
             System.out.println();
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
-            int y = mängujuht.getyKoordinaat();
+            int y = mängujuht.getYkoordinaat();
             if(kate[x][y].equals("#")){
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
                 mängujuht.küsiKaarti();
                 int x2 = mängujuht.getxKoordinaat();
-                int y2 = mängujuht.getyKoordinaat();
+                int y2 = mängujuht.getYkoordinaat();
                 if(kate[x2][y2].equals("#")){
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
                     if (täht1.equals(täht2)) {
                         kate[x][y] = kaardid[x][y];
                         kate[x2][y2] = kaardid[x2][y2];
                         õigeid += 1;
-                        skoor += väli.getLauaSuurus() * 2;
-                        System.out.println("Leidsid paari! ");
+                        skoor += lauaSuurus * 2;
+                        System.out.println("Leidsid paari! Sinu skoor: " + skoor);
                     } else {
+                        System.out.println();
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";
                         kate[x2][y2] = "#";
-                        skoor -= 1;
+                        if (skoor > 0)
+                            skoor -= 1;
+                        System.out.println("\nPaari ei leitud. Sinu skoor: " + skoor);
                         ootaSekundeid(1);
-                        System.out.println("Paari ei leitud. ");
                     }
-                    System.out.println("Sinu skoor: " + skoor + "\n");
                     ootaSekundeid(1);
                 }else {
                     kate[x][y] = "#";
@@ -54,10 +55,11 @@ public class Peaklass {
                 System.out.println("See kaart ei sobi... Proovi uuesti.");
             }
         }
-        mängujuht.võiduRaport(skoor);
-
+        System.out.println();
+        Mänguväli.väljastaMängulaud(kate);
+        ootaSekundeid(2);
+        mängujuht.lõpuRaport(skoor);
     }
-
     public static void ootaSekundeid(int n){
         try
         {
