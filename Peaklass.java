@@ -11,7 +11,7 @@ public class Peaklass {
         Mänguväli väli = new Mänguväli(lauaSuurus);
         String[][] kaardid = väli.getMängulaud();
         String[][] kate = väli.genereeriKate();
-        int mituPaari = (int) (Math.pow(väli.getLauaSuurus(), 2) / 2);
+        int mituPaari = (lauaSuurus*lauaSuurus) / 2;
         int õigeid = 0;
         int skoor = 0;
 
@@ -37,14 +37,14 @@ public class Peaklass {
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
                     //Kui sümbolid samad, loeme vastuse õigeks
                     if (täht1.equals(täht2)) {
-                        //muudan lauda ja uuendan skoori
+                        //Muudan lauda ja uuendan skoori
                         kate[x][y] = kaardid[x][y];
                         kate[x2][y2] = kaardid[x2][y2];
                         õigeid += 1;
                         skoor += lauaSuurus * 2;
                         System.out.println("Leidsid paari! Sinu skoor: " + skoor);
                     } else {
-                        //viin laua tagasi algsesse olekusse ja uuendan skoori
+                        //Viin laua tagasi algsesse olekusse ja uuendan skoori
                         System.out.println();
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";

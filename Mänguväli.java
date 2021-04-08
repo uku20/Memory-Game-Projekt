@@ -9,6 +9,7 @@ public class Mänguväli {
             "A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R"};
 
+    //Konstruktor
     public Mänguväli(int lauaSuurus) {
         this.lauaSuurus = lauaSuurus;
         mängulaud = new String[lauaSuurus][lauaSuurus];
@@ -18,16 +19,12 @@ public class Mänguväli {
         return lauaSuurus;
     }
 
-    public void setLauaSuurus(int lauaSuurus) {
-        this.lauaSuurus = lauaSuurus;
-    }
-
     public String[][] getMängulaud() {
         täidaLaud();
         return mängulaud;
     }
 
-    // Loob "katte" ehk lauasuuruse tabeli, kus iga element on sümbol '#'
+    //Loob "katte" ehk lauasuuruse tabeli, milles iga element on sümbol '#'
     public String[][] genereeriKate() {
         String[][] kate = new String[lauaSuurus][lauaSuurus];
         for (int i = 0; i < lauaSuurus; i++) {
@@ -40,7 +37,7 @@ public class Mänguväli {
 
     public void täidaLaud(){
         int mituMärki = (lauaSuurus * lauaSuurus)/2;
-        //teen listi, kuhu panen kõik massiivi asukohtade indeksite paarid.
+        //Teen listi, kuhu panen kõik massiivi asukohtade indeksite paarid
         List<int[]> vabadIndeksid = new ArrayList<>();
         for (int i = 0; i < lauaSuurus; i++) {
             for (int j = 0; j < lauaSuurus; j++) {
@@ -56,7 +53,7 @@ public class Mänguväli {
         }
         //Valin Random abiga suvalised kaks positsiooni tabelis ja ühe tähemärgi,
         //siis panen tähemärgid nendele positsioonidele ja eemaldan vastavad asjad listidest
-        //ja jätkan senikaua, kuni tabel on valmis.
+        //ja jätkan senikaua, kuni tabel on valmis
         while(vabadIndeksid.size()!=0){
             int arv1 = (int) (Math.round(Math.random() * (1 - (vabadIndeksid.size())) + vabadIndeksid.size())-1);
             int arv2 = (int) (Math.round(Math.random() * (1 - (vabadIndeksid.size())) + vabadIndeksid.size())-1);
@@ -83,12 +80,21 @@ public class Mänguväli {
         }
     }
 
+    //Kahemõõtmelise massiivi väljastamiseks tabelina
     public static void väljastaMängulaud(String[][] mängulaud){
         for (int i = 0; i < mängulaud.length; i++) {
             System.out.println(Arrays.toString(mängulaud[i]));
         }
     }
 
+    /**
+     * @param tühi massiiv, mida kuvatakse kasutajale (kate)
+     * @param algne algselt genereeritud tähepaaridega täidetud massiiv
+     * @param x rea indeks
+     * @param y veeru indeks
+     * @return see täidetud massiivi element, millega väärtustati
+     * kattemassiivi element enne tagastust
+     */
     public static String valiKaks(String[][] tühi, String[][] algne, int x, int y){
         tühi[x][y] = algne[x][y];
         return algne[x][y];

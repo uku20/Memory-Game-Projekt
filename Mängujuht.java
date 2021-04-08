@@ -3,14 +3,15 @@ import java.util.Scanner;
 
 public class Mängujuht {
     private Scanner scan = new Scanner(System.in);
-    private int sisendMõõde;
-    private int xKoordinaat;
-    private int yKoordinaat;
+    private int sisendMõõde; //Kasutaja sisestusega seotud laua suurus
+    private int xKoordinaat; //Sisestatud rea nr
+    private int yKoordinaat; //Sisestatud veeru nr
 
     public int getSisendMõõde() {
         return sisendMõõde;
     }
 
+    //Kasutusjuhise väljastamiseks
     public void juhataSisse() {
         Peaklass.ootaSekundeid(1);
         System.out.println(
@@ -30,19 +31,23 @@ public class Mängujuht {
                         genereeritakse kas 4x4 või 6x6 suuruses mängulaud.""");
     }
 
+    //Kasutajalt mängulaua mõõtme küsimiseks
     public void alusta() {
         boolean mõõdeValitud = false;
+        //Kordan tegevust seni, kuni mõõde on valitud
         do {
             System.out.println("\nVali mängulaua mõõde: ");
             try {
+                //Kui sisestati täisarv, siis salvestan selle
                 int sisend = scan.nextInt();
+                //Kontrollin sisendi tingimusi
                 if (sisend == 4 || sisend == 6) {
                     sisendMõõde = sisend;
                     mõõdeValitud = true;
-                } else
+                } else //Sisestati vale arv
                     System.out.println("See mõõde ei sobi. Proovi uuesti");
                 scan.nextLine();
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException e) { //Sisestati midagi muud peale arvu
                 System.out.println("See mõõde ei sobi. Proovi uuesti");
                 scan.nextLine();
             }
@@ -50,29 +55,32 @@ public class Mängujuht {
         while (!mõõdeValitud);
     }
 
+    //Kasutajalt elemendi asukoha küsimiseks
     public void küsiKaarti() {
+        //Esimesele käigule eelnev juhend
         if (xKoordinaat == 0)
             System.out.println("""
                     Sisesta kaardi asukoht kujul "rida[tühik]veerg".\s
                     Näiteks "1 1" on vasakul üleval nurgas olev kaart.\s """);
         System.out.println("Vali kaart: ");
         try {
+            //Kui sisestati täisarvud, siis väärtustan isendiväljad
             xKoordinaat = Integer.parseInt(scan.next());
             yKoordinaat = Integer.parseInt(scan.next());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { //Sisestati midagi muud
             System.out.println("Viga, sisesta uuesti");
             küsiKaarti();
         }
     }
-
+    //Indeksi saamiseks
     public int getxKoordinaat() {
         return xKoordinaat-1;
     }
-
     public int getYkoordinaat() {
         return yKoordinaat-1;
     }
 
+    //Lõpptulemuse väljastamiseks
     public void lõpuRaport(int skoor) {
         System.out.println();
         System.out.println("Palju õnne! Oled leidnud kõik paarid.\n" +
