@@ -15,7 +15,7 @@ public class Peaklass {
 
         Mänguväli.väljastaMängulaud(kaardid);
 
-        while (õigeid!=mituPaari) { //koos skanneriga
+        while (õigeid!=mituPaari) {
             ootaSekundeid(1);
             System.out.println();
             Mänguväli.väljastaMängulaud(kate);
@@ -41,7 +41,9 @@ public class Peaklass {
                         kate[x][y] = "#";
                         kate[x2][y2] = "#";
                         skoor -= 1;
+                        ootaSekundeid(1);
                         System.out.println("Paari ei leitud. ");
+                        ootaSekundeid(1);
                     }
                     System.out.println("Sinu skoor: " + skoor + "\n");
                     ootaSekundeid(1);
