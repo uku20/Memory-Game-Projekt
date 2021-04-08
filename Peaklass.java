@@ -43,7 +43,6 @@ public class Peaklass {
                         skoor -= 1;
                         ootaSekundeid(1);
                         System.out.println("Paari ei leitud. ");
-                        ootaSekundeid(1);
                     }
                     System.out.println("Sinu skoor: " + skoor + "\n");
                     ootaSekundeid(1);
