@@ -16,27 +16,35 @@ public class Peaklass {
         int skoor = 0;
 
         while (õigeid!=mituPaari) {
+            //Iga kord, kui valida õige paar, siis õigeid suureneb, ja kui kõik valitud, tsükkel lõpeb
             ootaSekundeid(1);
             System.out.println();
             Mänguväli.väljastaMängulaud(kate);
             System.out.println();
+            //Küsime mängijalt esimese kaardi asukoha
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
             int y = mängujuht.getYkoordinaat();
+            //Kontrollime, et see kaart poleks võetud
             if(kate[x][y].equals("#")){
+                //Küsime teise kaardi asukoha
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
                 mängujuht.küsiKaarti();
                 int x2 = mängujuht.getxKoordinaat();
                 int y2 = mängujuht.getYkoordinaat();
+                //Kontrollime, et see ei oleks võetud
                 if(kate[x2][y2].equals("#")){
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
+                    //Kui sümbolid samad, õige, muidu vale
                     if (täht1.equals(täht2)) {
+                        //muudan lauda ja uuendan skoori
                         kate[x][y] = kaardid[x][y];
                         kate[x2][y2] = kaardid[x2][y2];
                         õigeid += 1;
                         skoor += lauaSuurus * 2;
                         System.out.println("Leidsid paari! Sinu skoor: " + skoor);
                     } else {
+                        //viin laua tagasi ja uuendan skoori
                         System.out.println();
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";
