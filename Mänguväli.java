@@ -3,13 +3,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Mänguväli {
-    private String[][] mängulaud; //määran siin mängulaua juba isendiväljana
-    private int lauaSuurus; //Praegu maksimaalne laua suurus mis töötaks, oleks 6x6
+    private String[][] mängulaud; //Tähtedega täitmiseks
+    private int lauaSuurus;
     private String[] tähemärgid = {
             "A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R"};
 
-    //Konstruktor
     public Mänguväli(int lauaSuurus) {
         this.lauaSuurus = lauaSuurus;
         mängulaud = new String[lauaSuurus][lauaSuurus];
