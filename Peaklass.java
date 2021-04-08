@@ -27,15 +27,15 @@ public class Peaklass {
             int y = mängujuht.getYkoordinaat();
             //Kontrollime, et see kaart poleks võetud
             if(kate[x][y].equals("#")){
-                //Küsime teise kaardi asukoha
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
+                //Küsime teise kaardi asukoha
                 mängujuht.küsiKaarti();
                 int x2 = mängujuht.getxKoordinaat();
                 int y2 = mängujuht.getYkoordinaat();
                 //Kontrollime, et see ei oleks võetud
                 if(kate[x2][y2].equals("#")){
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
-                    //Kui sümbolid samad, õige, muidu vale
+                    //Kui sümbolid samad, loeme vastuse õigeks
                     if (täht1.equals(täht2)) {
                         //muudan lauda ja uuendan skoori
                         kate[x][y] = kaardid[x][y];
@@ -44,7 +44,7 @@ public class Peaklass {
                         skoor += lauaSuurus * 2;
                         System.out.println("Leidsid paari! Sinu skoor: " + skoor);
                     } else {
-                        //viin laua tagasi ja uuendan skoori
+                        //viin laua tagasi algsesse olekusse ja uuendan skoori
                         System.out.println();
                         Mänguväli.väljastaMängulaud(kate);
                         kate[x][y] = "#";
