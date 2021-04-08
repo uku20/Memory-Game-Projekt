@@ -3,15 +3,16 @@ import java.util.Arrays;
 public class Peaklass {
 
     public static void main(String[] args) {
-        int mituPaari = 8;//lauasuurs**2 / 2
-        int õigeid = 0;
-        Mänguväli väli = new Mänguväli(4);
+        Mängujuht mängujuht = new Mängujuht();
+        mängujuht.alusta();
+        int lauasuurus = mängujuht.getSisendMõõde();
+        Mänguväli väli = new Mänguväli(lauasuurus);
         String[][] kaardid = väli.getMängulaud();
         String[][] kate = väli.genereeriKate();
-        Mängujuht mängujuht = new Mängujuht();
+        int mituPaari = (lauasuurus*lauasuurus) / 2;
+        int õigeid = 0;
         int skoor = 0;
 
-        //mängujuht.alusta();
         Mänguväli.väljastaMängulaud(kaardid);
 
         while (õigeid!=mituPaari) { //koos skanneriga
@@ -21,12 +22,12 @@ public class Peaklass {
             System.out.println();
             mängujuht.küsiKaarti();
             int x = mängujuht.getxKoordinaat();
-            int y = mängujuht.getYkoordinaat();
+            int y = mängujuht.getyKoordinaat();
             if(kate[x][y].equals("#")){
                 String täht1 = Mänguväli.valiKaks(kate, kaardid, x, y);
                 mängujuht.küsiKaarti();
                 int x2 = mängujuht.getxKoordinaat();
-                int y2 = mängujuht.getYkoordinaat();
+                int y2 = mängujuht.getyKoordinaat();
                 if(kate[x2][y2].equals("#")){
                     String täht2 = Mänguväli.valiKaks(kate, kaardid, x2, y2);
                     if (täht1.equals(täht2)) {
