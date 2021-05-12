@@ -1,10 +1,7 @@
 package oop;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Mäng extends Application {
@@ -13,11 +10,9 @@ public class Mäng extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         mängulaud = new MängulaudII(4);
+        double aknaSuurus = 700;
 
-        BorderPane põhiPaneel = new BorderPane();
-        põhiPaneel.setCenter(mängulaud.getKuvar());
-
-        Scene stseen1 = new Scene(põhiPaneel, 700, 700, Color.SNOW);
+        Scene stseen1 = new Scene(mängulaud.looSisu());
         primaryStage.setTitle("Memoriin");
         primaryStage.setScene(stseen1);
         primaryStage.show();
@@ -26,4 +21,5 @@ public class Mäng extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

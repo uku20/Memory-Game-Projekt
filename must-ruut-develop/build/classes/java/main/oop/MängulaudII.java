@@ -1,26 +1,32 @@
 package oop;
 
-import javafx.scene.Group;
-import javafx.scene.layout.TilePane;
+
+import javafx.animation.FillTransition;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.util.*;
 
+
 public class MängulaudII  {
-    private static final int KAARDI_SUURUS = 100;
     private static final int VAHE = 7;
-    private String[] värviValik = {
+    private int klikke = 2;
+    private Kaart valitud = null;
+    private int lauaSuurus;
+    private int paare;
+
+    private final String[] värviValik = {
             "aquamarine", "blueviolet", "chartreuse", "coral", "darkblue", "darkred",
             "green", "magenta", "olive", "orange", "paleturquoise", "pink",
             "red", "sienna", "tan", "thistle", "yellow", "yellowgreen"};
     private Map<String, Integer> lisamisi;
     String[] valitudVärvid;
 
-    private TilePane kaardiPaan = new TilePane();
-    private Group kuvar = new Group(kaardiPaan);
-    private int lauaSuurus;
-    private int paare;
 
     public MängulaudII(int lauaSuurus) {
         this.lauaSuurus = lauaSuurus;
@@ -31,22 +37,33 @@ public class MängulaudII  {
         valiVärvid();
         // Hilisemaks kasutamiseks ka valitud värvid järjendina
         valitudVärvid = lisamisi.keySet().toArray(new String[0]);
-        // Määrata ruudustiku vahed ja kaartide arv reas/veerus
-        kaardiPaan.setHgap(VAHE);
-        kaardiPaan.setVgap(VAHE);
-        kaardiPaan.setPrefColumns(lauaSuurus);
-        kaardiPaan.setPrefRows(lauaSuurus);
-        // Luua kaardid
-        looKaardid();
-
     }
 
-    public static int getKaardiSuurus() {
-        return KAARDI_SUURUS;
-    }
+    public Parent looSisu() {
+        GridPane juur = new GridPane();
+        juur.setPrefSize(700,700);
+        juur.setBackground(new Background(new BackgroundFill(Color.SNOW, CornerRadii.EMPTY, Insets.EMPTY)));
 
-    public Group getKuvar() {
-        return kuvar;
+        List<Kaart> kaardid = new ArrayList<>();
+        for (int i = 0; i < paare; i++) {
+            kaardid.add(new Kaart(valitudVärvid[i]));
+            kaardid.add(new Kaart(valitudVärvid[i]));
+        }
+        Collections.shuffle(kaardid);
+        for (int i = 0; i < kaardid.size(); i++) {
+            Kaart kaart = kaardid.get(i);
+            int xKoordinaat = (kaart.getSUURUS() * (i%lauaSuurus));
+            int yKoordinaat = (kaart.getSUURUS() * (i/lauaSuurus));
+            kaart.setTranslateX(xKoordinaat);
+            kaart.setTranslateY(yKoordinaat);
+            juur.getChildren().add(kaart);
+
+        }
+        // Vahede tekitamine ruudustikku, ei toimi kahjuks
+        //juur.setHgap(VAHE);
+        //juur.setVgap(VAHE);
+
+        return juur;
     }
 
     private void valiVärvid() {
@@ -64,34 +81,68 @@ public class MängulaudII  {
         }
     }
 
-    private void looKaardid() {
-        // Lisada paanile iga rea ja veeru kohta uus kaart
-        kaardiPaan.getChildren().clear();
-        for (int i = 0; i < lauaSuurus; i++) {
-            for (int j = 0; j < lauaSuurus; j++) {
-                kaardiPaan.getChildren().add(looKaart().getKaardiSelg());
+    public class Kaart extends StackPane {
+        private final int SUURUS = 100;
+        private Rectangle kaardiPind;
+        private Color vaikeVärv;
+        private Color kaardiVärv;
+        private boolean animeerib;
+
+
+        public Kaart(String värv) {
+            this.vaikeVärv = Color.web("lightgrey");
+            this.kaardiPind = new Rectangle(SUURUS, SUURUS);
+            kaardiPind.setFill(vaikeVärv);
+            this.kaardiVärv = Color.web(värv);
+
+            getChildren().addAll(kaardiPind);
+
+            setOnMouseClicked(this::reageeriKlikile);
+            sulge();
+        }
+
+        public void reageeriKlikile(MouseEvent me) {
+            if (onKuvatud() || klikke == 0)
+                return;
+            klikke--;
+            if (valitud == null) {
+                valitud = this;
+                ava(() -> {});
+            } else {
+                ava(() -> {
+                    if (!onSamaVärvi(valitud)) {
+                        valitud.sulge();
+                        this.sulge();
+                    }
+                    valitud = null;
+                    klikke = 2;
+                });
             }
         }
-    }
 
-    private Kaart looKaart() {
-        Kaart kaart;
-        while (true) {
-            // Juba valitud värvide seast genereerida üks suvaline
-            int genIndeks = new Random().nextInt(valitudVärvid.length);
-            String genVärv = valitudVärvid[genIndeks];
-            // Leida lisaks, mitu korda on seda värvi kaarte juba loodud
-            int lisatud = lisamisi.get(genVärv);
-            if (lisatud < 2) {
-                // Seda värvi kaarte on laual kas 0 või 1, seega võib ühe juurde luua
-                Rectangle kaardiPilt = new Rectangle(KAARDI_SUURUS, KAARDI_SUURUS, Color.web(genVärv));
-                kaart = new Kaart(kaardiPilt);
-                // Suurendada värvi kasutamiste arvu mapis ja katkestada suvalise värvi genereerimine
-                lisamisi.put(genVärv, lisatud + 1);
-                break;
-            }
+        private boolean onSamaVärvi(Kaart teineKaart) {
+            return kaardiPind.getFill() == teineKaart.kaardiPind.getFill();
         }
-        return kaart;
-    }
 
+        private boolean onKuvatud() {
+            return kaardiPind.getFill() == kaardiVärv;
+        }
+
+        public void ava(Runnable action) {
+            FillTransition ft = new FillTransition(Duration.seconds(0.5),
+                    kaardiPind, vaikeVärv, kaardiVärv);
+            ft.setOnFinished(e -> action.run());
+            ft.play();
+        }
+
+        public void sulge() {
+            FillTransition ft = new FillTransition(Duration.seconds(0.5),
+                    kaardiPind, kaardiVärv, vaikeVärv);
+            ft.play();
+        }
+
+        public int getSUURUS() {
+            return SUURUS;
+        }
+    }
 }
