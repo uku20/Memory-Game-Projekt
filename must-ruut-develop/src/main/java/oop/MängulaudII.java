@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class MängulaudII  {
     private Kaart valitud = null;
     private int lauaSuurus;
     private int paare;
+    private int leitud;
 
     private final String[] värviValik = {
             "aquamarine", "blueviolet", "chartreuse", "coral", "darkblue", "darkred",
@@ -31,6 +33,7 @@ public class MängulaudII  {
     public MängulaudII(int lauaSuurus) {
         this.lauaSuurus = lauaSuurus;
         paare = (lauaSuurus*lauaSuurus) / 2;
+        leitud = 0;
         // Konstruktoris luua ka uus map, kuhu hiljem salvestada
         // suvaliselt valitud värvide kasutamiste arv kaartide loomisel
         lisamisi = new HashMap<>(paare);
@@ -87,6 +90,7 @@ public class MängulaudII  {
         private Color vaikeVärv;
         private Color kaardiVärv;
         private boolean animeerib;
+        private Duration aeg = Duration.millis(6000);
 
 
         public Kaart(String värv) {
@@ -97,7 +101,13 @@ public class MängulaudII  {
 
             getChildren().addAll(kaardiPind);
 
-            setOnMouseClicked(this::reageeriKlikile);
+            if (leitud < paare) {
+                setOnMouseClicked(this::reageeriKlikile);
+            } else {
+                Stage lava3 = new Stage();
+                lava3.setScene(new Lõpp(50, aeg).lõpuStseen());
+                lava3.show();
+            }
             sulge();
         }
 
@@ -113,6 +123,9 @@ public class MängulaudII  {
                     if (!onSamaVärvi(valitud)) {
                         valitud.sulge();
                         this.sulge();
+                    } else {
+                        leitud++;
+                        System.out.println("Leiti paar! Kokku leitud: " + leitud);
                     }
                     valitud = null;
                     klikke = 2;
