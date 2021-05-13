@@ -2,14 +2,18 @@ oop/TühiTekstErind.java
  oop.TühiTekstErind
 oop/Kaart.java
  oop.Kaart
+oop/Mängulaud.java
+ oop.Mängulaud
 oop/ViganeSisendErind.java
  oop.ViganeSisendErind
+oop/Avaleht.java
+ oop.Avaleht
 oop/MängulaudII.java
  oop.MängulaudII
  oop.MängulaudII$Kaart
-oop/Avaleht.java
- oop.Avaleht
 module-info.java
  module-info
+oop/Lõpp.java
+ oop.Lõpp
 oop/Mäng.java
  oop.Mäng

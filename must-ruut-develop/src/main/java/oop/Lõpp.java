@@ -17,9 +17,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Lõpp {
-    private int lõppSkoor;
-    private Duration kulunudAeg;
+public class Lõpp{
+    private static int lõppSkoor;
+    private static Duration kulunudAeg;
+
+    public static int getLõppSkoor() {
+        return lõppSkoor;
+    }
+
+    public static Duration getKulunudAeg() {
+        return kulunudAeg;
+    }
 
     public Lõpp(int lõppSkoor, Duration aeg) {
         this.lõppSkoor = lõppSkoor;
@@ -51,5 +59,4 @@ public class Lõpp {
         return new Scene(paneel, 400, 300);
 
     }
-
 }

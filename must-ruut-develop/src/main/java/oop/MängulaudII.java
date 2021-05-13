@@ -23,6 +23,14 @@ public class MängulaudII  {
     private int leitud;
     private int skoor;
 
+    public int getPaare() {
+        return paare;
+    }
+
+    public int getLeitud() {
+        return leitud;
+    }
+
     private final String[] värviValik = {
             "aquamarine", "blueviolet", "chartreuse", "coral", "darkblue", "darkred",
             "green", "magenta", "olive", "orange", "paleturquoise", "pink",
