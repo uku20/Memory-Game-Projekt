@@ -21,6 +21,7 @@ public class MängulaudII  {
     private int lauaSuurus;
     private int paare;
     private int leitud;
+    private int skoor;
 
     private final String[] värviValik = {
             "aquamarine", "blueviolet", "chartreuse", "coral", "darkblue", "darkred",
@@ -34,6 +35,7 @@ public class MängulaudII  {
         this.lauaSuurus = lauaSuurus;
         paare = (lauaSuurus*lauaSuurus) / 2;
         leitud = 0;
+        skoor = 0;
         // Konstruktoris luua ka uus map, kuhu hiljem salvestada
         // suvaliselt valitud värvide kasutamiste arv kaartide loomisel
         lisamisi = new HashMap<>(paare);
@@ -121,11 +123,14 @@ public class MängulaudII  {
             } else {
                 ava(() -> {
                     if (!onSamaVärvi(valitud)) {
+                        skoor -= 1;
+                        System.out.println("Paari ei leitud. Skoor: " + skoor);
                         valitud.sulge();
                         this.sulge();
                     } else {
                         leitud++;
-                        System.out.println("Leiti paar! Kokku leitud: " + leitud);
+                        skoor += lauaSuurus * 2;
+                        System.out.println("Leiti paar! Skoor: " + skoor);
                     }
                     valitud = null;
                     klikke = 2;
