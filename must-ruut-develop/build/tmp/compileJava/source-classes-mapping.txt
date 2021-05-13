@@ -1,4 +1,15 @@
-oop/Mängulaud.java
- oop.Mängulaud
+oop/TühiTekstErind.java
+ oop.TühiTekstErind
+oop/Kaart.java
+ oop.Kaart
+oop/ViganeSisendErind.java
+ oop.ViganeSisendErind
+oop/MängulaudII.java
+ oop.MängulaudII
+ oop.MängulaudII$Kaart
+oop/Avaleht.java
+ oop.Avaleht
 module-info.java
  module-info
+oop/Mäng.java
+ oop.Mäng
